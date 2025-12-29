@@ -26,6 +26,11 @@ public class ProductService {
     }
 
     public Product save(Product product) {
+        // Si es un producto nuevo, el ID debe ser null para que JPA haga un INSERT
+        // Si recibes un 0 del frontend/postman, cámbialo a null
+        if (product.getProductId() != null && product.getProductId() == 0) {
+            product.setProductId(null);
+        }
         return productRepository.save(product);
     }
 
