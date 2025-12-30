@@ -1,8 +1,13 @@
 package com.luiscacuango.market.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class Category {
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Identificador único de la categoría", example = "1")
     private int categoryId;
+    @Schema(description = "Nombre de la categoría", example = "Lacteos")
     private String category;
+    @Schema(description = "Estado de la categoría", example = "true")
     private boolean active;
 
     public int getCategoryId() {

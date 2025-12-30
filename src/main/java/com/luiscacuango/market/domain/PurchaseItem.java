@@ -1,9 +1,15 @@
 package com.luiscacuango.market.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class PurchaseItem {
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Identificador único del producto", example = "1")
     private int productId;
+    @Schema(description = "Cantidad del producto", example = "2")
     private int quantity;
+    @Schema(description = "Total de la compra", example = "5.98")
     private double total;
+    @Schema(description = "Estado del producto", example = "true")
     private boolean active;
 
     // Getters y setters

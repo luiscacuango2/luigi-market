@@ -1,15 +1,23 @@
 package com.luiscacuango.market.domain;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonPropertyOrder({ "productId", "name", "categoryId", "price", "stock", "active", "category" })
 public class Product {
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Identificador único del producto", example = "1")
     private Integer productId;
+    @Schema(description = "Nombre del producto", example = "Leche")
     private String name;
+    @Schema(description = "Identificador de la categoría del producto", example = "1")
     private int categoryId;
+    @Schema(description = "Precio del producto", example = "2.99")
     private double price;
+    @Schema(description = "Stock del producto", example = "50")
     private int stock;
+    @Schema(description = "Estado del producto", example = "true")
     private boolean active;
+    @Schema(description = "Categoría del producto", example = "Lacteos")
     private Category category;
 
     public Integer getProductId() {
