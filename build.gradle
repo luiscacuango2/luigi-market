@@ -5,8 +5,8 @@ plugins {
 }
 
 group = 'com.luiscacuango'
-version = '0.0.1-SNAPSHOT'
-description = 'Proyecto para crear una API con Spring'
+version = '1.0'
+description = 'Proyecto para crear una API que gestionará las operaciones de un supermercado'
 
 java {
 	toolchain {

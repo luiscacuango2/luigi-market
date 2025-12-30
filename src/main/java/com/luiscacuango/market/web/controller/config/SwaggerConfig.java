@@ -37,6 +37,26 @@ public class SwaggerConfig {
 
     }
 
+    // Primer grupo: Solo Productos
+    @Bean
+    public GroupedOpenApi productsApi() {
+        return GroupedOpenApi.builder()
+                .group("1-productos-market") // Nombre que saldrá en el selector
+                .packagesToScan("com.luiscacuango.market.web.controller")
+                .pathsToMatch("/products/**") // Solo rutas que empiecen con /products
+                .build();
+    }
+
+    // Segundo grupo: Solo Compras
+    @Bean
+    public GroupedOpenApi purchasesApi() {
+        return GroupedOpenApi.builder()
+                .group("2-compras-market") // Segundo nombre en el selector
+                .packagesToScan("com.luiscacuango.market.web.controller")
+                .pathsToMatch("/purchases/**")
+                .build();
+    }
+
     // Metodo auxiliar para Spring Security con JWT
     private SecurityScheme createAPIKeyScheme() {
         return new SecurityScheme().type(SecurityScheme.Type.HTTP)
