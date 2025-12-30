@@ -1,26 +1,18 @@
-# Etapa 1: Build con Gradle y JDK 21 (Compilación)
-# Se usa JDK 21 por ser la versión LTS más estable para Spring Boot 3
-FROM gradle:8.5-jdk21 AS build
+# Etapa 1: Build con Gradle 8.12 o superior para soportar Spring Boot 4.x
+FROM gradle:8.12-jdk21 AS build
 LABEL authors="luigi"
 
-# Copiar el código fuente con permisos adecuados para el usuario gradle
+# Copiar el código fuente
 COPY --chown=gradle:gradle . /app
 WORKDIR /app
 
-# Construir el JAR saltando las pruebas para acelerar el despliegue en Render
-RUN gradle bootJar --no-daemon -x test
+# Construir el JAR usando el wrapper si es posible, o gradle directamente
+# He cambiado 'gradle' por './gradlew' que es la mejor práctica
+RUN chmod +x gradlew && ./gradlew bootJar --no-daemon -x test
 
-# Etapa 2: Runtime con JRE 21 (Ejecución)
-# Usamos JRE en lugar de JDK para reducir el tamaño de la imagen final
+# Etapa 2: Runtime
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-
-# Copiar el JAR generado desde la etapa de build
-# Se renombra a app.jar para mayor simplicidad
 COPY --from=build /app/build/libs/*.jar luigi-market.jar
-
-# Exponer el puerto configurado en tu aplicación
 EXPOSE 8080
-
-# Comando de inicio activando el perfil de producción
 ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "luigi-market.jar"]
