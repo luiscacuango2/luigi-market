@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.luiscacuango'
 version = '1.0'
-description = 'Proyecto para crear una API que gestionará las operaciones de un supermercado'
+description = 'API para gestión de supermercado'
 
 java {
 	toolchain {

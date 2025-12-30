@@ -2,14 +2,12 @@ package com.luiscacuango.market.persistence.mapper;
 
 import com.luiscacuango.market.domain.Product;
 import com.luiscacuango.market.persistence.entity.Producto;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {CategoryMapper.class})
+@Mapper(componentModel = "spring", uses = {CategoryMapper.class},
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ProductMapper {
     @Mappings({
             @Mapping(source = "idProducto", target = "productId"),

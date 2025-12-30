@@ -5,7 +5,6 @@ import com.luiscacuango.market.domain.repository.ProductRepository;
 import com.luiscacuango.market.persistence.crud.ProductoCrudRepository;
 import com.luiscacuango.market.persistence.entity.Producto;
 import com.luiscacuango.market.persistence.mapper.ProductMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,10 +12,14 @@ import java.util.Optional;
 
 @Repository
 public class ProductoRepository implements ProductRepository {
-    @Autowired
-    private ProductoCrudRepository productoCrudRepository;
-    @Autowired
-    private ProductMapper mapper;
+
+    private final ProductoCrudRepository productoCrudRepository;
+    private final ProductMapper mapper;
+
+    public ProductoRepository(ProductoCrudRepository productoCrudRepository, ProductMapper mapper) {
+        this.productoCrudRepository = productoCrudRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<Product> getAll() {
@@ -31,7 +34,7 @@ public class ProductoRepository implements ProductRepository {
     }
 
     @Override
-    public Optional<List<Product>> getScarseProducts(int quantity) {
+    public Optional<List<Product>> getScarceProducts(int quantity) {
         Optional<List<Producto>> productos = productoCrudRepository.findByCantidadStockLessThanAndEstado(quantity, true);
         return productos.map(products -> mapper.toProducts(products));
     }

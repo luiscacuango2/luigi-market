@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,14 @@ import java.util.List;
 @RequestMapping("/products")
 @Tag(name = "Productos", description = "Catálogo y gestión de productos del supermercado")
 public class ProductController {
-    @Autowired
-    private ProductService productService;
 
-    @GetMapping("/all")
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping
     @Operation(summary = "Lista todos los productos", description = "Obtiene un listado completo de productos con su stock y categoría")
     @ApiResponse(responseCode = "200", description = "Productos encontrados con éxito")
     public ResponseEntity<List<Product>> getAll() {
@@ -67,14 +72,14 @@ public class ProductController {
     @PostMapping("/save")
     @Operation(summary = "Crea un nuevo producto", description = "Crea un nuevo producto")
     @ApiResponse(responseCode = "201", description = "Producto creado con éxito")
-    public ResponseEntity<Product> save(@RequestBody Product product) {
+    public ResponseEntity<Product> save(@Valid @RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "Elimina un producto por su ID", description = "Elimina un producto específico por su ID")
     @ApiResponse(responseCode = "200", description = "Producto eliminado con éxito")
-    public ResponseEntity delete(@Parameter(description = "ID del producto", required = true, example = "7") @PathVariable("id") int productId) {
+    public ResponseEntity<Void>  delete(@Parameter(description = "ID del producto", required = true, example = "7") @PathVariable("id") int productId) {
         if (productService.delete(productId)) {
             return new ResponseEntity(HttpStatus.OK);
         } else {

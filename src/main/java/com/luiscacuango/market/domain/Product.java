@@ -2,17 +2,23 @@ package com.luiscacuango.market.domain;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.math.BigDecimal;
 
 @JsonPropertyOrder({ "productId", "name", "categoryId", "price", "stock", "active", "category" })
 public class Product {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Identificador único del producto", example = "1")
     private Integer productId;
+    @NotNull
+    @Size(min = 2, max = 100)
     @Schema(description = "Nombre del producto", example = "Leche")
     private String name;
     @Schema(description = "Identificador de la categoría del producto", example = "1")
     private int categoryId;
     @Schema(description = "Precio del producto", example = "2.99")
-    private double price;
+    private BigDecimal price;
     @Schema(description = "Stock del producto", example = "50")
     private int stock;
     @Schema(description = "Estado del producto", example = "true")
@@ -44,11 +50,11 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
