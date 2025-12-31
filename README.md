@@ -5,6 +5,7 @@
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker)](https://www.docker.com/)
 [![Render](https://img.shields.io/badge/Deploy-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/)
+[![Spring Actuator](https://img.shields.io/badge/Health%20Check-Enabled-success?style=for-the-badge&logo=spring&logoColor=white)](https://tu-app-en-render.onrender.com/luigi-market/actuator/health)
 
 API REST de alto rendimiento diseñada bajo los estándares de **Clean Architecture** y **Domain-Driven Design (DDD)**. Esta solución gestiona el flujo completo de un supermercado: inventario, categorías y procesamiento transaccional de compras.
 
@@ -23,8 +24,12 @@ API REST de alto rendimiento diseñada bajo los estándares de **Clean Architect
 ## 🧱 Arquitectura y Estructura
 
 El proyecto implementa una **Arquitectura de Cebolla (Onion Architecture)**, garantizando que la lógica de negocio sea independiente de los agentes externos (Base de datos, Frameworks, UI).
-
-
+```text
+[Cliente] -> [Controller] -> [Service Interface] -> [Service Implementation]
+^           |                 |                         |
+|           v                 v                         v
+[JSON Response] <- [Mapper (DTO)] <- [Repository Adapter] <- [JPA Entity]
+```
 ### Organización de Archivos
 ```text
 com.luiscacuango.market
@@ -58,8 +63,8 @@ El proyecto está construido con las tecnologías más modernas y estables del e
 * **🐳 Contenedores:** Docker (Multi-stage builds para optimización de imágenes)
 * **🐘 Gestor de dependencias:** Gradle (Automatización y construcción)
 * **📊 Monitoreo:** [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html) (Métricas y Health Check en tiempo real)
-
 ---
+
 ## 🌐 Aplicación en Vivo
 
 La API se encuentra actualmente desplegada y operativa en la nube. Puedes interactuar con ella a través de los siguientes enlaces:
@@ -99,17 +104,17 @@ Ruta base: `/api/purchases`
 
 ---
 
-## 🛠️ Configuración de Producción
+## 🛠️ Configuración de Producción (Environment)
 
 Para el despliegue en entornos como **Render** o **Railway**, configura las siguientes variables de entorno para una conexión segura a la base de datos:
 
-| Variable | Descripción |
-| :--- | :--- |
-| `DB_HOST` | Endpoint del servidor de base de datos remoto. |
-| `DB_NAME` | Nombre de la base de datos de producción. |
-| `DB_USER` | Usuario con permisos de lectura/escritura. |
-| `DB_PASSWORD` | Contraseña del usuario de base de datos. |
-| `SPRING_PROFILES_ACTIVE` | Definir como `pdn` para cargar la configuración de producción. |
+| Variable | Descripción                                                     |
+| :--- |:----------------------------------------------------------------|
+| `DB_HOST` | Endpoint del servidor de base de datos remoto.                  |
+| `DB_NAME` | Nombre de la base de datos de producción.                       |
+| `DB_USER` | Usuario con permisos de lectura/escritura.                      |
+| `DB_PASSWORD` | Contraseña del usuario de base de datos.                        |
+| `SPRING_PROFILES_ACTIVE` | Definir como `prod` para cargar la configuración de producción. |
 
 ---
 
@@ -132,6 +137,17 @@ Si deseas emular el entorno de producción en tu máquina local, utiliza los sig
    ```bash
    docker build -t luigi-market .
     ```
+---
+### ⚡ Quick Start (Local)
+
+1. Clona el repo.
+2. Crea un archivo `application-local.properties` en `resources`.
+3. Configura tu base de datos local.
+4. Ejecuta:
+   ```bash
+   ./gradlew bootRun
+   ```
+5. Abre http://localhost:8080/luigi-market/swagger-ui.html para ver la magia. 
 ---
 ## 🤝 Contribuciones
 
@@ -156,7 +172,7 @@ Desarrollado por **Luis Cacuango** *Especialista en desarrollo Backend con Java 
 
 | Plataforma | Perfil |
 | :--- | :--- |
-| **LinkedIn** | [Luis Cacuango](https://linkedin.com/in/tu-usuario) |
+| **LinkedIn** | [Luis Cacuango](https://www.linkedin.com/in/luiscacuango2084/) |
 | **GitHub** | [@luiscacuango2](https://github.com/luiscacuango2) |
 
 ---
