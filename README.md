@@ -4,6 +4,7 @@
 [![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk)](https://www.oracle.com/java/)
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker)](https://www.docker.com/)
+[![Render](https://img.shields.io/badge/Deploy-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/)
 
 API REST de alto rendimiento diseñada bajo los estándares de **Clean Architecture** y **Domain-Driven Design (DDD)**. Esta solución gestiona el flujo completo de un supermercado: inventario, categorías y procesamiento transaccional de compras.
 
@@ -21,8 +22,7 @@ API REST de alto rendimiento diseñada bajo los estándares de **Clean Architect
 
 ## 🧱 Arquitectura y Estructura
 
-El sistema se divide en capas concéntricas donde las dependencias solo apuntan hacia adentro (hacia el Dominio).
-
+El proyecto implementa una **Arquitectura de Cebolla (Onion Architecture)**, garantizando que la lógica de negocio sea independiente de los agentes externos (Base de datos, Frameworks, UI).
 
 
 ### Organización de Archivos
@@ -44,19 +44,36 @@ com.luiscacuango.market
 │
 └── 🚀 MarketApplication      # Punto de entrada de la aplicación
 ```
-## ⚙️ Tecnologías y Herramientas
 
-* Java 21 (LTS)
-* Spring Boot 3.4+
-* Spring Data JPA & Hibernate
-* MapStruct (Mapping de objetos)
-* PostgreSQL (Producción)
-* SpringDoc OpenAPI (Swagger)
-* Gradle (Gestor de dependencias)
+## 🛠️ Stack Tecnológico
 
+El proyecto está construido con las tecnologías más modernas y estables del ecosistema Java:
+
+* **☕ Lenguaje:** Java 21 (LTS)
+* **🍃 Framework:** Spring Boot 3.4+
+* **🗄️ Persistencia:** Spring Data JPA & Hibernate 7
+* **🔄 Mapeo:** MapStruct (Conversión eficiente Entity ↔ DTO)
+* **☁️ Base de Datos:** PostgreSQL (Cloud via [Neon.com](https://neon.com/))
+* **📖 Documentación:** Swagger UI (OpenAPI 3)
+* **🐳 Contenedores:** Docker (Multi-stage builds para optimización de imágenes)
+* **🐘 Gestor de dependencias:** Gradle (Automatización y construcción)
+* **📊 Monitoreo:** [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html) (Métricas y Health Check en tiempo real)
+
+---
+## 🌐 Aplicación en Vivo
+
+La API se encuentra actualmente desplegada y operativa en la nube. Puedes interactuar con ella a través de los siguientes enlaces:
+
+* **🚀 API Base URL:** [https://luigiplay.onrender.com/luigi-market](https://luigiplay.onrender.com/luigi-market)
+* **📑 Documentación Interactiva:** [Swagger UI - Explorar Endpoints](https://luigiplay.onrender.com/luigi-market/swagger-ui.html)
+
+> **Nota:** Debido al uso del plan gratuito de Render, la aplicación puede tardar entre 30 y 60 segundos en "despertar" si no ha recibido tráfico recientemente.
 ---
 
 ## 🚀 Endpoints Principales
+| Método | Path | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/actuator/health` | Verifica el estado de salud de la API y la conexión a la DB. |
 
 ### 📦 Gestión de Productos
 Ruta base: `/api/products`
